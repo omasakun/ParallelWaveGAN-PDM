@@ -4,23 +4,26 @@
 """Setup Parallel WaveGAN libarary."""
 
 import os
-import pip
+# import pip
 import sys
 
-from distutils.version import LooseVersion
+# from distutils.version import LooseVersion
 from setuptools import find_packages
 from setuptools import setup
 
-if LooseVersion(sys.version) < LooseVersion("3.7"):
-    raise RuntimeError(
-        "parallel-wavegan requires Python>=3.7, "
-        "but your Python is {}".format(sys.version)
-    )
-if LooseVersion(pip.__version__) < LooseVersion("19"):
-    raise RuntimeError(
-        "pip>=19.0.0 is required, but your pip is {}. "
-        'Try again after "pip install -U pip"'.format(pip.__version__)
-    )
+python_requires = ">=3.7"
+# if LooseVersion(sys.version) < LooseVersion("3.7"):
+#     raise RuntimeError(
+#         "parallel-wavegan requires Python>=3.7, "
+#         "but your Python is {}".format(sys.version)
+#     )
+
+# I don't think pip version check is necessary.
+# if LooseVersion(pip.__version__) < LooseVersion("19"):
+#     raise RuntimeError(
+#         "pip>=19.0.0 is required, but your pip is {}. "
+#         'Try again after "pip install -U pip"'.format(pip.__version__)
+#     )
 
 requirements = {
     "install": [
@@ -40,10 +43,10 @@ requirements = {
         # https://github.com/kan-bayashi/ParallelWaveGAN/runs/6646851174?check_suite_focus=true#step:6:294
         "protobuf<=3.20.1",
     ],
-    "setup": [
-        "numpy",
-        "pytest-runner",
-    ],
+    # "setup": [
+    #     "numpy",
+    #     "pytest-runner",
+    # ],
     "test": [
         "pytest>=3.3.0",
         "hacking>=4.1.0",
@@ -62,7 +65,7 @@ entry_points = {
 }
 
 install_requires = requirements["install"]
-setup_requires = requirements["setup"]
+# setup_requires = requirements["setup"]
 tests_require = requirements["test"]
 extras_require = {
     k: v for k, v in requirements.items() if k not in ["install", "setup"]
@@ -81,7 +84,7 @@ setup(
     license="MIT License",
     packages=find_packages(include=["parallel_wavegan*"]),
     install_requires=install_requires,
-    setup_requires=setup_requires,
+    # setup_requires=setup_requires,
     tests_require=tests_require,
     extras_require=extras_require,
     entry_points=entry_points,
@@ -94,4 +97,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
+    python_requires=python_requires,  # https://stackoverflow.com/a/37216606
 )
